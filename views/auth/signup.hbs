@@ -1,24 +1,34 @@
-<div id="form">
-  <h2>Sign Up</h2>
-  <form action="/auth/signup" method="POST">
-
-    <label> Username
-      <input type="text" name="username" placeholder="Your username" />
-    </label>
-
-    <label> Email
-      <input type="email" name="email" placeholder="Your email" />
-    </label>
-
-    <label> Password
-      <input type="password" name="password" placeholder="Your password" />
-    </label>
-
-    <button type="submit">Sign Up</button>
-
-
-    {{#if errorMessage}}
+<form action="/auth/signup" method="post">
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Name</label>
+    <input type="text" class="form-control" name="name" value="Harland">
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Last Name</label>
+    <input type="text" class="form-control" name="lastName" value="Lohora">
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Date Birth</label>
+    <input type="datetime-local" class="form-control" name="dateBirth">
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Email address</label>
+    <input type="email" class="form-control" name="email" value="harland@ironhack.com">
+    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Password</label>
+    <input type="password" class="form-control" name="password" value="BurroFi0na">
+  </div>
+  <select class="form-select" aria-label="Default select example" name="country">
+    <option selected>Select your country</option>
+    <option value="Mexico">Mexico</option>
+    <option value="USA">USA</option>
+    <option value="Colombia">Colombia</option>
+    <option value="Hungria">Hungria</option>
+  </select>
+  <button type="submit" class="btn btn-primary">Submit</button>
+  {{#if errorMessage}}
       <p class="error">{{errorMessage}}</p>
-    {{/if}}
-  </form>
-</div>
+  {{/if}}
+</form>

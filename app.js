@@ -29,9 +29,24 @@ hbs.registerPartials(__dirname + "/views/partials");
 const indexRoutes = require("./routes/index.routes");
 app.use("/", indexRoutes);
 
+//localhost:3000/auth
 const authRoutes = require("./routes/auth.routes");
 app.use("/auth", authRoutes);
 
+//localhost:3000/guest
+const guestRoutes = require("./routes/guest.routes");
+app.use("/guest", guestRoutes);
+
+//localhost:3000/admin
+const adminRoutes = require("./routes/admin.routes");
+app.use("/admin", adminRoutes);
+
+//localhost:3000/property
+const propertyRoutes = require("./routes/property.routes");
+app.use("/property", propertyRoutes);
+//ctrl+d o cmd+d
+
+//Duplicar alt+shift+abajo
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
 

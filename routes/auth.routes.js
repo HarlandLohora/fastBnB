@@ -22,10 +22,10 @@ router.get("/signup", isLoggedOut, (req, res) => {
 
 // POST /auth/signup
 router.post("/signup", isLoggedOut, (req, res) => {
-  const { username, email, password } = req.body;
-
+  const { name, lastName, dateBirth, email, password, country } = req.body;
+  console.log(req.body);
   // Check that username, email, and password are provided
-  if (username === "" || email === "" || password === "") {
+  if (name === "" || lastName === "" || email === "" || password === "") {
     res.status(400).render("auth/signup", {
       errorMessage:
         "All fields are mandatory. Please provide your username, email and password.",
@@ -61,12 +61,21 @@ router.post("/signup", isLoggedOut, (req, res) => {
     .then((salt) => bcrypt.hash(password, salt))
     .then((hashedPassword) => {
       // Create a user and save it in the database
-      return User.create({ username, email, password: hashedPassword });
+      // return User.create({ username, email, password: hashedPassword });
+      return User.create({
+        name,
+        lastName,
+        dateBirth,
+        email,
+        password: hashedPassword,
+        country,
+      });
     })
     .then((user) => {
       res.redirect("/auth/login");
     })
     .catch((error) => {
+      console.log(error);
       if (error instanceof mongoose.Error.ValidationError) {
         res.status(500).render("auth/signup", { errorMessage: error.message });
       } else if (error.code === 11000) {
@@ -87,10 +96,10 @@ router.get("/login", isLoggedOut, (req, res) => {
 
 // POST /auth/login
 router.post("/login", isLoggedOut, (req, res, next) => {
-  const { username, email, password } = req.body;
+  const { email, password } = req.body;
 
   // Check that username, email, and password are provided
-  if (username === "" || email === "" || password === "") {
+  if (email === "" || password === "") {
     res.status(400).render("auth/login", {
       errorMessage:
         "All fields are mandatory. Please provide username, email and password.",
@@ -133,8 +142,15 @@ router.post("/login", isLoggedOut, (req, res, next) => {
           req.session.currentUser = user.toObject();
           // Remove the password field
           delete req.session.currentUser.password;
-
-          res.redirect("/");
+          //Verificar el rol y redireccionar a donde lo necesite
+          console.log(req.session.currentUser.role);
+          if (req.session.currentUser.role === "guest") {
+            res.redirect("/guest/profile");
+          } else if (req.session.currentUser.role === "admin") {
+            res.redirect("/admin/dashboard");
+          } else {
+            //host
+          }
         })
         .catch((err) => next(err)); // In this case, we send error handling to the error handling middleware.
     })

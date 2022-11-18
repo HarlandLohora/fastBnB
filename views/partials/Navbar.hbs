@@ -17,6 +17,7 @@
             Properties
           </a>
           <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/property/all">All</a></li>
             <li><a class="dropdown-item" href="#">Apartments</a></li>
             <li><a class="dropdown-item" href="#">House</a></li>
             <li><hr class="dropdown-divider"></li>
@@ -25,10 +26,25 @@
         </li>
      
       </ul>
-      <form class="d-flex" role="search">
-        <button class="btn btn-outline-primary" type="submit">Signup</button>
-        <button class="btn btn-outline-primary" type="submit">Login</button>
-      </form>
+      <div class="d-flex" role="search">
+        {{#unless currentUser}}
+        <a href="/auth/signup">
+        <button class="btn btn-outline-primary" >Signup</button>
+        </a>
+        <a href="/auth/login">
+        <button class="btn btn-outline-primary" >Login</button>
+        </a>
+        {{/unless}}
+        {{#if currentUser}}
+          <a href="/auth/logout">
+            <button class="btn btn-outline-primary" >Logout</button>
+          </a>
+          {{#with currentUser}}
+            <strong style="color: white">{{name}} - {{lastName}}</strong>
+            <img src="{{profilePic}}" class="profilePic"/>
+          {{/with}}
+        {{/if}}
+      </div>
     </div>
   </div>
 </nav>

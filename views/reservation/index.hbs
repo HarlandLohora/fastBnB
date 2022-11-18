@@ -1,0 +1,23 @@
+<form action="/reservation/new" method="post">
+  <div class="mb-3">
+    <label for="Start date" class="form-label">Start date</label>
+    <input type="date" class="form-control" name="startDate">
+  </div>
+  <div class="mb-3">
+    <label for="End date" class="form-label">End date</label>
+    <input type="date" class="form-control" name="endDate">
+  </div>
+   <div class="mb-3">
+    <label for="Total days" class="form-label">Total days</label>
+    <input type="number" class="form-control" name="totalDays">
+  </div>
+   <div class="mb-3">
+    <label for="real price" class="form-label">Real price</label>
+    <input type="number" class="form-control" name="realPrice">
+  </div>
+   <div class="mb-3 form-check">
+    <input type="checkbox" class="form-check-input" name="active">
+    <label class="form-check-label" >Active</label>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
